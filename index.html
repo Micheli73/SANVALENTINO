@@ -10,11 +10,10 @@ body{
     margin:0;
     font-family: Arial, sans-serif;
     background: linear-gradient(to right, #ff9a9e, #fad0c4);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
     text-align:center;
+    min-height:100vh;
+    padding:20px 0;
+    /* Rimuoviamo flex per permettere lo scroll su mobile */
 }
 
 .container{
@@ -24,6 +23,7 @@ body{
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
     width:95%;
     max-width:600px;
+    margin:20px auto; /* centrato orizzontalmente */
     position:relative;
     overflow:hidden;
 }
@@ -31,7 +31,7 @@ body{
 img{
     width:100%;
     height:300px; /* leggermente più piccola */
-    object-fit:contain; /* mantiene l’immagine intera */
+    object-fit:contain;
     border-radius:15px;
     margin:20px 0;
 }
