@@ -15,20 +15,6 @@ body{
     align-items:center;
     min-height:100vh;
     text-align:center;
-    overflow:hidden;
-}
-
-/* CUORI ANIMATI */
-.heart{
-    position:fixed;
-    bottom:-10px;
-    font-size:20px;
-    animation: floatUp 6s linear infinite;
-    color:#ff4d6d;
-}
-@keyframes floatUp{
-    0%{transform:translateY(0); opacity:1;}
-    100%{transform:translateY(-100vh); opacity:0;}
 }
 
 .container{
@@ -39,13 +25,13 @@ body{
     width:95%;
     max-width:600px;
     position:relative;
-    transition:0.5s;
+    overflow:hidden;
 }
 
 img{
     width:100%;
-    height:400px;
-    object-fit:contain;
+    height:300px; /* leggermente più piccola */
+    object-fit:contain; /* mantiene l’immagine intera */
     border-radius:15px;
     margin:20px 0;
 }
@@ -57,46 +43,33 @@ button{
     border-radius:10px;
     cursor:pointer;
     font-size:16px;
-    transition:0.3s;
-}
-
-button:hover{
-    transform:scale(1.1);
 }
 
 .si{ background:#ff4d6d; color:white; }
 .no{ background:#999; color:white; }
-
-input{
-    padding:10px;
-    margin:10px 0;
-    width:80%;
-    font-size:16px;
-    border-radius:10px;
-    border:1px solid #ccc;
-}
+input{ padding:10px; margin:10px 0; width:80%; font-size:16px; }
 </style>
 </head>
 
 <body>
 
-<!-- PAGINA 1 -->
 <div class="container" id="page1">
     <h2>Sei sicura di voler ricevere questa domanda? ❤️</h2>
     <img src="immaginivalentino/1.jpg">
     <button class="si" onclick="goPage2()">Sì</button>
 </div>
 
-<!-- PAGINA 2 -->
 <div class="container" id="page2" style="display:none;">
-    <p>Ma prima ne ho io una per te. Hai più di 18 anni?</p>
+    <h2>Inserisci il tuo nome 💕</h2>
     <img src="immaginivalentino/2.jpg">
-    <button class="si" onclick="vaiDomanda()">Sì</button>
-    <button class="no" onclick="goNo18()">No</button>
-    <button class="si" onclick="vaiDomanda()">Si ma sono minorenne e mi piacciono le 07 😘</button>
+    <input type="text" id="nome" placeholder="Il tuo nome">
+    <br>
+    <p>Hai più di 18 anni?</p>
+    <button class="si" onclick="goFinal()">Sì</button>
+    <button class="no" onclick="goFinal()">No</button>
+    <button class="si" onclick="goPage3()">Preferisco non dirlo 😏</button>
 </div>
 
-<!-- PAGINA 3 -->
 <div class="container" id="page3" style="display:none;">
     <h2 id="domandaFinale"></h2>
     <img src="immaginivalentino/3.jpg">
@@ -104,47 +77,41 @@ input{
     <button class="no" id="noBtn" onmouseover="muoviNo()">No</button>
 </div>
 
-<!-- PAGINA FINALE SI -->
 <div class="container" id="page4" style="display:none;">
-    <h1>Allora è ufficiale... 💍❤️</h1>
-    <h2>Sei la mia Valentina 💖</h2>
+    <h1 id="messaggioFinale"></h1>
     <img src="immaginivalentino/4.jpg">
 </div>
 
-<!-- PAGINA NO 18 -->
-<div class="container" id="page5" style="display:none;">
-    <h1>STAMMI LONTANA ZOCCOLA 😨</h1>
-    <img src="immaginivalentino/5.jpg">
-</div>
-
 <script>
-
-/* CUORI CHE CADONO */
-setInterval(function(){
-    let heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤️";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(Math.random()*20+15)+"px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
-},500);
-
 function goPage2(){
     document.getElementById("page1").style.display="none";
     document.getElementById("page2").style.display="block";
 }
 
-function vaiDomanda(){
+function goPage3(){
+    let nome = document.getElementById("nome").value;
+    if(nome == "") nome = "Amore mio";
     document.getElementById("page2").style.display="none";
     document.getElementById("page3").style.display="block";
     document.getElementById("domandaFinale").innerText =
-        "GODO , Vuoi essere la mia Valentina? ❤️";
+        nome + ", vuoi essere la mia Valentina? ❤️";
+}
+
+function goFinal(){
+    let nome = document.getElementById("nome").value;
+    if(nome == "") nome = "Amore mio";
+    document.getElementById("page2").style.display="none";
+    document.getElementById("page4").style.display="block";
+    document.getElementById("messaggioFinale").innerText =
+        nome + ", sei la cosa più bella che mi sia capitata 💖";
 }
 
 function rispostaSi(){
+    let nome = document.getElementById("nome").value;
     document.getElementById("page3").style.display="none";
     document.getElementById("page4").style.display="block";
+    document.getElementById("messaggioFinale").innerText =
+        nome + " HA DETTO SÌ!!! 💍❤️";
 }
 
 function muoviNo(){
@@ -153,12 +120,6 @@ function muoviNo(){
     btn.style.top=Math.random()*80+"%";
     btn.style.left=Math.random()*80+"%";
 }
-
-function goNo18(){
-    document.getElementById("page2").style.display="none";
-    document.getElementById("page5").style.display="block";
-}
-
 </script>
 
 </body>
