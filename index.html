@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vuoi essere la mia Valentina?</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    text-align:center;
+    overflow:hidden;
+}
+
+/* CUORI ANIMATI */
+.heart{
+    position:fixed;
+    bottom:-10px;
+    font-size:20px;
+    animation: floatUp 6s linear infinite;
+    color:#ff4d6d;
+}
+@keyframes floatUp{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-100vh); opacity:0;}
+}
+
+.container{
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    width:95%;
+    max-width:600px;
+    position:relative;
+    transition:0.5s;
+}
+
+img{
+    width:100%;
+    height:400px;
+    object-fit:contain;
+    border-radius:15px;
+    margin:20px 0;
+}
+
+button{
+    padding:10px 20px;
+    margin:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+.si{ background:#ff4d6d; color:white; }
+.no{ background:#999; color:white; }
+
+input{
+    padding:10px;
+    margin:10px 0;
+    width:80%;
+    font-size:16px;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGINA 1 -->
+<div class="container" id="page1">
+    <h2>Sei sicura di voler ricevere questa domanda? ❤️</h2>
+    <img src="immaginivalentino/1.jpg">
+    <button class="si" onclick="goPage2()">Sì</button>
+</div>
+
+<!-- PAGINA 2 -->
+<div class="container" id="page2" style="display:none;">
+    <p>Ma prima ne ho io una per te. Hai più di 18 anni?</p>
+    <img src="immaginivalentino/2.jpg">
+    <button class="si" onclick="vaiDomanda()">Sì</button>
+    <button class="no" onclick="goNo18()">No</button>
+    <button class="si" onclick="vaiDomanda()">Si ma sono minorenne e mi piacciono le 07 😘</button>
+</div>
+
+<!-- PAGINA 3 -->
+<div class="container" id="page3" style="display:none;">
+    <h2 id="domandaFinale"></h2>
+    <img src="immaginivalentino/3.jpg">
+    <button class="si" onclick="rispostaSi()">Sì 💖</button>
+    <button class="no" id="noBtn" onmouseover="muoviNo()">No</button>
+</div>
+
+<!-- PAGINA FINALE SI -->
+<div class="container" id="page4" style="display:none;">
+    <h1>Allora è ufficiale... 💍❤️</h1>
+    <h2>Sei la mia Valentina 💖</h2>
+    <img src="immaginivalentino/4.jpg">
+</div>
+
+<!-- PAGINA NO 18 -->
+<div class="container" id="page5" style="display:none;">
+    <h1>STAMMI LONTANA ZOCCOLA 😨</h1>
+    <img src="immaginivalentino/5.jpg">
+</div>
+
+<script>
+
+/* CUORI CHE CADONO */
+setInterval(function(){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+15)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+},500);
+
+function goPage2(){
+    document.getElementById("page1").style.display="none";
+    document.getElementById("page2").style.display="block";
+}
+
+function vaiDomanda(){
+    document.getElementById("page2").style.display="none";
+    document.getElementById("page3").style.display="block";
+    document.getElementById("domandaFinale").innerText =
+        "GODO , Vuoi essere la mia Valentina? ❤️";
+}
+
+function rispostaSi(){
+    document.getElementById("page3").style.display="none";
+    document.getElementById("page4").style.display="block";
+}
+
+function muoviNo(){
+    let btn = document.getElementById("noBtn");
+    btn.style.position="absolute";
+    btn.style.top=Math.random()*80+"%";
+    btn.style.left=Math.random()*80+"%";
+}
+
+function goNo18(){
+    document.getElementById("page2").style.display="none";
+    document.getElementById("page5").style.display="block";
+}
+
+</script>
+
+</body>
+</html>
